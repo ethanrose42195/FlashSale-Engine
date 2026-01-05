@@ -1,0 +1,18 @@
+# Spring Boot 配置文件
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/flash_sale?currentSchema=flash_sale
+    username: postgres
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.engine.flashsale.entity
+  configuration:
+    map-underline-to-camel-case: true # 自动下划线转驼峰
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 控制台打印SQL，方便调试
