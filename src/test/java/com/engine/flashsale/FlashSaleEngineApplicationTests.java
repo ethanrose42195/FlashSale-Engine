@@ -4,6 +4,8 @@ import com.engine.flashsale.mapper.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 class FlashSaleEngineApplicationTests {
@@ -22,6 +24,9 @@ class FlashSaleEngineApplicationTests {
 
     @Autowired
     private SeckillOrderMapper seckillOrderMapper;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Test
     void contextLoads() {
@@ -42,4 +47,27 @@ class FlashSaleEngineApplicationTests {
     }
 
 
+    @Test
+    void testRedisConn(){
+        String testKey = "redisTestKey";
+        String testValue = "HelloRedis";
+
+        // 1. 写入 Redis
+        redisTemplate.opsForValue().set(testKey, testValue);
+
+        // 2. 读取 Redis
+        Object value = redisTemplate.opsForValue().get(testKey);
+
+        System.out.println("Redis 返回值: " + value);
+
+        // 3. 可选：删除测试 key
+        redisTemplate.delete(testKey);
+    }
+
+    @Test
+    void test(){
+        System.out.println("=====================");
+        System.out.println(redisTemplate.opsForValue().get("user:1a765367cbd44c7dac8530eb6aa0e30c"));
+        System.out.println("=====================");
+    }
 }

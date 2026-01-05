@@ -20,13 +20,9 @@ public class User {
      */
     private String nickname;
     /**
-     * 密码：MD5(MD5(pass明文+固定salt) + salt)
+     * 密码
      */
     private String password;
-    /**
-     * 盐
-     */
-    private String salt;
     /**
      * 头像
      */

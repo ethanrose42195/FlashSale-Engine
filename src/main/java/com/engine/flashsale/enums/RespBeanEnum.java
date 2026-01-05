@@ -23,7 +23,8 @@ public enum RespBeanEnum {
 
     // 秒杀模块 5005xx
     EMPTY_STOCK(500500, "库存不足"),
-    REPEATE_ERROR(500501, "该商品每人限购一件");
+    REPEATE_ERROR(500501, "该商品每人限购一件"),
+    SESSION_ERROR(500210, "Session不存在或者已经失效");
 
     private final Integer code;
     private final String message;
