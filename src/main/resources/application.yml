@@ -1,18 +1,39 @@
+# ==============================
 # Spring Boot 配置文件
+# ==============================
+
 server:
-  port: 8080
+  port: 8080 # 服务端口
 
 spring:
+  # 数据源配置
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 使用 Druid 数据源
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/flash_sale?currentSchema=flash_sale
-    username: postgres
-    password: 123456
-    type: com.alibaba.druid.pool.DruidDataSource
+    username: postgres # 数据库用户名
+    password: 123456   # 数据库密码
 
+  # Redis 配置
+  data:
+    redis:
+      host: localhost # 如果在 Docker 内部署，将来要改成 Docker 容器名或 IP
+      port: 6379      # Redis 端口
+      database: 0     # 数据库索引
+      timeout: 10000ms # 连接超时时间
+      lettuce:
+        pool:
+          max-active: 8  # 最大连接数
+          max-idle: 8    # 最大空闲连接数
+          min-idle: 0    # 最小空闲连接数
+          max-wait: -1ms # 连接池获取超时时间 (-1 表示无限等待)
+
+# ==============================
+# MyBatis-Plus 配置
+# ==============================
 mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: com.engine.flashsale.entity
+  type-aliases-package: com.engine.flashsale.entity # 实体类包
+  mapper-locations: classpath*:/mapper/**/*.xml     # Mapper XML 文件路径
   configuration:
-    map-underline-to-camel-case: true # 自动下划线转驼峰
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 控制台打印SQL，方便调试
+    map-underline-to-camel-case: true              # 自动下划线转驼峰
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 控制台打印 SQL，方便调试
